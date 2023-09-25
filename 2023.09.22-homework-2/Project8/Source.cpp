@@ -8,41 +8,50 @@ int main(int argc, char* argv[])
 	std::cin >> a;
 	std::cin >> b;
 	std::cin >> c;
-	if (a >= b && b >= c) {
-		int z = a;
-		a = c;
-		c = z;
-		std::cout << a << " " << b << " " << c;
+	int max = 0;
+	int min = 0;
+	int sr = 0;
+	if (a >= b) {
+		if (b >= c) {
+			 max = a;
+			 min = c;
+			 sr = b;
+		}
+		else if (b <= c) {
+			if (a >= c) {
+				 max = a;
+				 min = b;
+				 sr = c;
+			}
+			else if (a <= c) {
+				 max = c;
+				 min = b;
+				 sr = a;
+			}
+		}
 	}
-	if (a >= c && c >= b) {
-		int x = a;
-		a = b;
-		b = x;
-		std::cout << a << " " << b << " " << c;
+	else if (a <= b) {
+		if (c <= a) {
+			max = b;
+			min = c;
+			sr = a;
+		}
+		else if (c >= a) {
+			if (b <= c) {
+				 max = c;
+				 min = a;
+				 sr = b;
+			}
+			else if (b >= c) {
+				 max = b;
+				 min = a;
+				 sr = c;
+			}
+		}
 	}
-	if (b >= a && a >= c) {
-		int v = b;
-		b = c;
-		c = v;
-		std::cout << a << " " << b << " " << c;
-	}
-	if (b >= c && c >= a) {
-		int l = b;
-		b = a;
-		a = l;
-		std::cout << a << " " << b << " " << c;
-	}
-	if (c >= a && a >= b) {
-		int m = c;
-		c = b;
-		b = m;
-		std::cout << a << " " << b << " " << c;
-	}
-	if (c >= b && b >= a) {
-		int q = c;
-		c = a;
-		a = q;
-		std::cout << a << " " << b << " " << c;
-	}
+	a = min;
+	b = sr;
+	c = max;
+	std::cout << a << " " << b << " " << c;
 	return EXIT_SUCCESS;
 }
