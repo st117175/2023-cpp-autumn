@@ -113,19 +113,20 @@ void ascending(int*& a, int& tyu)
 
 int searchMin(int* a, int& tyu)
 {
-	int min = a[0];
-	for (int i = 0; i < tyu; ++i)
+	int min = a[tyu - 1];
+	for (int i = 0; i < tyu - 1; ++i)
 	{
-		if (a[i + 1] < a[i])
+		if (a[i + 1] < min)
 		{
 			min = a[i + 1];
 		}
 	}
-	for (int j = 0; j < tyu; ++j)
+	for (int j = tyu - 1; j >= 0; ++j)
 	{
 		if (a[j] == min)
 		{
 			min = j;
+			break;
 		}
 	}
 	return min;
@@ -134,18 +135,19 @@ int searchMin(int* a, int& tyu)
 int searchMax(int* a, int& tyu)
 {
 	int max = a[0];
-	for (int i = 0; i < tyu; ++i)
+	for (int i = 0; i < tyu - 1; ++i)
 	{
-		if (a[i + 1] > a[i])
+		if (a[i + 1] > max)
 		{
 			max = a[i + 1];
 		}
 	}
-	for (int j = 0; j < tyu; ++j)
+	for (int j = 0; j <= tyu; ++j)
 	{
 		if (a[j] == max)
 		{
 			max = j;
+			break;
 		}
 	}
 	return max;
