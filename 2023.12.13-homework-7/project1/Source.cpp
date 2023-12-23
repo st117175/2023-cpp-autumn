@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 char* strcat(char* str1, char* str2)
 {
 	int len1 = strlen(str1), len2 = strlen(str2);
@@ -37,34 +36,27 @@ int strstr(char* str1, char* str2)
 				break;
 			}
 		}
-		
+
 		if (indexStr2 == len2 - 1)
 		{
 			return i;
 			break;
 		}
-		else
-		{
-			++temp;
-		}
-	}
-	if (temp = len1)
-	{
-		return 0;
 	}
 }
 
 char* substr(char* str1, int index, int len)
 {
-	char str2[]{ 0 };
+	char ululu[]{ 0 };
 	int k = 0;
 	for (int i = index; i < index + len; ++i)
 	{
-		str2[k] = str1[i];
-		k++;
+		ululu[k] = str1[i];
+		++k;
 	}
+	ululu[k] = '\0';
 
-	return str2;
+	return ululu;
 }
 
 int strcmp(char* str1, char* str2)
@@ -92,7 +84,7 @@ int strcmp(char* str1, char* str2)
 
 char* strmult(char* str1, int num)
 {
-    int len = strlen(str1);
+	int len = strlen(str1);
 	char newstr[]{ 0 };
 	for (int i = 0; i < num; ++i)
 	{
@@ -101,6 +93,7 @@ char* strmult(char* str1, int num)
 			newstr[j] = str1[j % len];
 		}
 	}
+	newstr[len * num] = '\0';
 
 	return newstr;
 }
@@ -109,16 +102,20 @@ int main(int argc, char* argv[])
 {
 	FILE* f = fopen("in.txt", "r");
 
-	char a[]{0};
+	char a[]{ 0 };
 	fscanf(f, "%s", &a);
-	char b[]{0};
+	char b[]{ 0 };
 	fscanf(f, "%s", &b);
 	fclose(f);
 
 	f = fopen("out.txt", "w");
 
-	fprintf(f, "%s", strcat(a, b));
-	fprintf(f, "%d", strstr(a, b));
+	//fprintf(f, "%s", strcat(a, b));
+	//fprintf(f, "%d", strstr(a, b));
+	//fprintf(f, "%s", substr(a, 5, 5));
+	//fprintf(f, "%d", strcmp(a, b));
+	//fprintf(f, "%s", strmult(a, 3));
 
 	fclose(f);
+
 }
