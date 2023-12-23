@@ -3,8 +3,10 @@ int main(int argc, char* argv[])
 {
 	int n = 0;
 	std::cin >> n;
+
 	int f = n % 100;
 	int k = f % 10;
+
 	if (f == 1) 
 	{
 		std::cout << n << " " << "bochka";
