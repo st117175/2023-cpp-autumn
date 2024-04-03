@@ -6,7 +6,7 @@
 int main(int argc, char* argv[])
 {
 
-	FILE* f1 = fopen("in.txt", "r");
+	FILE* f1 = fopen("ink.txt", "r");
 
 	char s[]{ 0 };
 	int count = 0;
@@ -16,71 +16,49 @@ int main(int argc, char* argv[])
 	}
 	fclose(f1);
 
-	FILE* f2 = fopen("out.txt", "w");
+	FILE* f2 = fopen("outk.txt", "w");
 	fprintf(f2, "%s %d", "words found:", count);
 	fclose(f2);
 
+	f1 = fopen("ink.txt", "r");
+	char strMax[]{ 0 };
 
-	f1 = fopen("in.txt", "r");
-	int maxCount = 0;
-	int count1 = 0;
-	while (fscanf(f1, "%s") != EOF)
+	int NumOfSent = 0;
+	int NumOfSentMax = 0;
+	int countMax = 0;
+	while (!feof(f1))
 	{
+		int count = 0;
 		while (fscanf(f1, "%c") != '.')
 		{
 			if (fscanf(f1, "%c") == ' ')
 			{
-				++count1;
+				++count;
 			}
 		}
-		if (maxCount < count1 + 1)
+		++NumOfSent;
+		if (countMax < count + 1)
 		{
-			maxCount = count1 + 1;
-		}
-		count1 = 0;
-	}
-
-	int numOfSentence = 0;
-	while (fscanf(f1, "%s") != EOF)
-	{
-		while (fscanf(f1, "%c") != '.')
-		{
-			if (fscanf(f1, "%c") == ' ')
-			{
-				++count1;
-			}
-		}
-		++numOfSentence;
-		if (count1 == maxCount)
-		{
-			break;
-		}
-		count1 = 0;
-	}
-
-	int j = 0;
-	char maxSentence[]{ 0 };
-	int m = 0;
-	while (fscanf(f1, "%s") != EOF)
-	{
-		while (m < numOfSentence - 1)
-		{
-			if (fscanf(f1, "%c") == '.')
-			{
-				++m;
-			}
-		}
-		while (fscanf(f1, "%c") != '.')
-		{
-			maxSentence[j] = fscanf(f1, "%c");
-			++j;
+			countMax = count + 1;
+			NumOfSentMax = NumOfSent;
 		}
 	}
-	maxSentence[j] = '\0';
 	fclose(f1);
 
-	f2 = fopen("out.txt", "w");
-	fprintf(f2, "%s", maxSentence);
+	f1 = fopen("ink.txt", "r");
+	int help = 0;
+	while (help < NumOfSentMax - 1)
+	{
+		if (fscanf(f1, "%c") != '.')
+		{
+			++help;
+		}
+	}
+	fscanf(f1, "%[.]", strMax);
+	fclose(f1);
+
+	f2 = fopen("outk.txt", "w");
+	fprintf(f2, "%s", strMax);
 	fclose(f2);
 
 	return EXIT_SUCCESS;
