@@ -73,31 +73,29 @@ public:
 		}
 	}
 
-	void Turnir()
+	bool Turnir()
 	{
-		bool turnir = false;
-		for (int i = 1; i < _vertexes; ++i)
+		for (int i = 0; i < _vertexes; ++i)
 		{
-			for (int j = 0; j < i; ++j)
+			if (_matrix[i][i] == 1)
 			{
-				if (_matrix[i][j] + _matrix[j][i] == 1)
+				return false;
+			}
+			for (int j = i + 1; j < _vertexes; ++j)
+			{
+				if (_matrix[i][j] + _matrix[j][i] != 1)
 				{
-					turnir = true;
-				}
-				else
-				{
-					turnir = false;
+					return false;
 				}
 			}
+
 		}
-		for (int k = 0; k < _vertexes; ++k)
-		{
-			if (_matrix[k][k] == 1)
-			{
-				turnir = false;
-			}
-		}
-		if (turnir == true)
+		return true;
+	}
+
+	void PrintTurnir()
+	{
+		if (Turnir() == true)
 		{
 			std::cout << "YES";
 		}
@@ -117,7 +115,7 @@ int main(int argc, char* argv[])
 	std::cin >> edges;
 	CGraph graph(vertexes, edges);
 	graph.MakeMatrix();
-	graph.Turnir();
+	graph.PrintTurnir();
 
 	return EXIT_SUCCESS;
 }
