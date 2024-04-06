@@ -11,6 +11,7 @@ private:
 public:
 	CGraph();
 	CGraph(int vertexes, int edges);
+	CGraph(const CGraph& src);
 	~CGraph();
 
 	void setVertexes(int vertexes);
@@ -21,6 +22,7 @@ public:
 
 	void ReadMatrix();
 	void initMatrix();
+	void disposeMatrix();
 	void MakeMatrix();
 	void PrintMatrix();
 

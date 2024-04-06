@@ -18,9 +18,20 @@ public:
 		initMatrix();
 	}
 
+	CGraph(const CGraph& src) : _vertexes(src._vertexes) {
+		initMatrix();
+		for (int i = 0; i < _vertexes; ++i)
+		{
+			for (int j = 0; j < _vertexes; ++j)
+			{
+				_matrix[i][j] = src._matrix[i][j];
+			}
+		}
+	}
+
 	~CGraph()
 	{
-		delete[] _matrix;
+		disposeMatrix();
 		delete[] DegVertex();
 	}
 
@@ -41,6 +52,15 @@ public:
 		{
 			_matrix[i] = new int[_vertexes] { 0 };
 		}
+	}
+
+	void disposeMatrix()
+	{
+		for (int i = 0; i < _vertexes; ++i)
+		{
+			delete[] _matrix[i];
+		}
+		delete[] _matrix;
 	}
 
 	void ReadMatrix()

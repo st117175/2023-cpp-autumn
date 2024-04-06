@@ -10,9 +10,21 @@ CGraph::CGraph(int vertexes, int edges)
 	initMatrix();
 	init_color_vertexes();
 }
+
+CGraph::CGraph(const CGraph& src) : _vertexes(src._vertexes) {
+	initMatrix();
+	for (int i = 0; i < _vertexes; ++i)
+	{
+		for (int j = 0; j < _vertexes; ++j)
+		{
+			_matrix[i][j] = src._matrix[i][j];
+		}
+	}
+}
+
 CGraph::~CGraph()
 {
-	delete[] _matrix;
+	disposeMatrix();
 }
 
 void CGraph::setVertexes(int vertexes) { _vertexes = vertexes; }
@@ -58,6 +70,15 @@ void CGraph::MakeMatrix()
 		_matrix[str - 1][stlb - 1] = 1;
 		_matrix[stlb - 1][str - 1] = 1;
 	}
+}
+
+void CGraph::disposeMatrix()
+{
+	for (int i = 0; i < _vertexes; ++i)
+	{
+		delete[] _matrix[i];
+	}
+	delete[] _matrix;
 }
 
 //for task 1

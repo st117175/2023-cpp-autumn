@@ -17,9 +17,20 @@ public:
 	{
 		initMatrix();
 	}
+	CGraph(const CGraph& src) : _vertexes(src._vertexes) {
+		initMatrix();
+		for (int i = 0; i < _vertexes; ++i)
+		{
+			for (int j = 0; j < _vertexes; ++j)
+			{
+				_matrix[i][j] = src._matrix[i][j];
+			}
+		}
+	}
+
 	~CGraph()
 	{
-		delete[] _matrix;
+		disposeMatrix();
 	}
 
 	void setVertexes(int vertexes) { _vertexes = vertexes; }
@@ -39,6 +50,15 @@ public:
 		{
 			_matrix[i] = new int[_vertexes] { 0 };
 		}
+	}
+
+	void disposeMatrix()
+	{
+		for (int i = 0; i < _vertexes; ++i)
+		{
+			delete[] _matrix[i];
+		}
+		delete[] _matrix;
 	}
 
 	void MakeMatrix()
@@ -70,51 +90,6 @@ public:
 		}
 	}
 
-	int* TrackTo1(int num1)
-	{
-		int num1_ = num1;
-		int* TrackTo1 = new int [_vertexes] {0};
-		while (true)
-		{
-			int k = 1;
-			TrackTo1[0] = num1;
-			for (int i = 0; i < _vertexes; ++i)
-			{
-				if (_matrix[num1][i] == 1)
-				{
-					TrackTo1[k] = i;
-					k++;
-					*&num1_ = i;
-					if (num1 == 1)
-					{
-						break;
-					}
-				}
-			}
-		}
-		return TrackTo1;
-	}
-
-	int SearchNearestRelative(int num1, int num2)
-	{
-		bool flag = true;
-		int i = _vertexes - 1;
-		int NearestRelative = 1;
-		while (flag == true)
-		{
-			if (TrackTo1(num1)[i - 1] == TrackTo1(num2)[i - 1])
-			{
-				NearestRelative = TrackTo1(num1)[i - 1];
-				--i;
-			}
-			else
-			{
-				break;
-			}
-		}
-		return NearestRelative;
-	}
-
 };
 
 int main(int argc, char* argv[])
@@ -129,9 +104,6 @@ int main(int argc, char* argv[])
 	std::cin >> num1;
 	std::cin >> num2;
 	graph.MakeMatrix();
-
-	std::cout << graph.TrackTo1(num1);
-	graph.SearchNearestRelative(num1, num2);
 
 	return EXIT_SUCCESS;
 }
