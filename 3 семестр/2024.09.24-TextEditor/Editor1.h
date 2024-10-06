@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-using namespace std;
+using namespace std;	// Это загрязняет пространство имен и по код стайлу нельзя использовать. Перепиши все через std::
 
 class TextEditor
 {
@@ -34,6 +34,10 @@ class TextEditor
 		return *this;
 	}
 
+	// Комментарий ко всем методам: в заголовочном файле мы объявляем методы, а их определение
+	// уже пишем в .cpp файле 
+	// Примерно структура должна быть следующая: main.cpp, где ты проверяешь основную функциональность, 
+	// Editor.cpp с определением методов класса и Editor.h с объявлением класса и его методов 
 	void addText(string text)
 	{
 	textBefore += text;
@@ -52,10 +56,10 @@ class TextEditor
 	int deleteText(int k)
 	{
 	textBefore.erase(textBefore.length() - k);
-	return k;
+	return k;	// А если текст у нас из 5 символов, а на вход deleteText передали k = 6, вернется ли корректное значение? 
 	}
 
-	string cursorLeft(int k)
+	string cursorLeft(int k)	// А если k=100?
 	{
 		string cursorLef_t;
 		cursorLef_t.resize(k);
@@ -71,7 +75,7 @@ class TextEditor
 	    cursorLef_t[j] = textAfter[textAfter.length() - j - 1];
 	    }
 		deleteText(k);
-		return cursorLef_t;
+		return cursorLef_t;	// Возвращаются символы, которые правее курсора)
 	}
 
 	string cursorRight(int k)
@@ -90,7 +94,12 @@ class TextEditor
 			cursorRigh_t[j] = textBefore[textBefore.length() - k + j];
 		}
 		textAfter.erase(sizeTextAfter - k);
-		return cursorRigh_t;
+		return cursorRigh_t;	// Возвращаются только те символы, через которые прошел курсор.
+					// Пусть у нас есть hello world|
+					// После cursorLeft(5) имеем hello |world
+					// cursorLeft(5) должна вернуть по условию "hello ", у тебя "world"
+					/// После cursorRight(3) имеем hello wor|ld
+					// cursorLeft(5) должна вернуть по условию "ld", у тебя "wor"
 	}
 
 };
