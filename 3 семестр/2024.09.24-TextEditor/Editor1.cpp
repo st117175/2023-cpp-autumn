@@ -43,32 +43,41 @@ void TextEditor::print()
 
 int TextEditor::deleteText(int k)
 {
-	textBefore.erase(textBefore.length() - k);
-	return k;
+	if(k > textBefore.length())
+	{
+		textBefore.erase(0);
+		return textBefore.length();
+	}
+	else
+	{
+		textBefore.erase(textBefore.length() - k);
+		return k;
+	}
 }
 
 std::string TextEditor::cursorLeft(int k)
 {
-	std::string cursorLef_t;
-	cursorLef_t.resize(k);
-	int sizeTextAfter = textAfter.length();
-	int sizeTextBefore = textBefore.length();
-	textAfter.resize(k + sizeTextAfter);
-	for(int i = 0; i < k; ++i)
+	if(k > textBefore.length())
 	{
-		textAfter[i + sizeTextAfter] = textBefore[sizeTextBefore - i - 1];
+		return (*this).cursorLeft(textBefore.length());
 	}
-	for(int j = 0; j < k; ++j)
-    {
-    cursorLef_t[j] = textAfter[textAfter.length() - j - 1];
-    }
-	deleteText(k);
-	return cursorLef_t;
+
+	else
+	{
+		int sizeTextAfter = textAfter.length();
+		int sizeTextBefore = textBefore.length();
+		textAfter.resize(k + sizeTextAfter);
+		for(int i = 0; i < k; ++i)
+		{
+			textAfter[i + sizeTextAfter] = textBefore[sizeTextBefore - i - 1];
+		}
+		deleteText(k);
+		return textBefore;
+	}
 }
 
 std::string TextEditor::cursorRight(int k)
 {
-	std::string cursorRigh_t;
 	int sizeTextAfter = textAfter.length();
 	int sizeTextBefore = textBefore.length();
 	textBefore.resize(sizeTextBefore + k);
@@ -76,11 +85,6 @@ std::string TextEditor::cursorRight(int k)
 	{
 		textBefore[sizeTextBefore + i] = textAfter[sizeTextAfter - i - 1];
 	}
-	cursorRigh_t.resize(k);
-	for(int j = 0; j < k; ++j)
-	{
-		cursorRigh_t[j] = textBefore[textBefore.length() - k + j];
-	}
 	textAfter.erase(sizeTextAfter - k);
-	return cursorRigh_t;
+	return textAfter;
 }	
