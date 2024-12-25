@@ -1,0 +1,18 @@
+Шерстобитов Владимир
+
+Написать шаблон класс Array со следующей структурой
+template <class T>
+class Array
+{
+	T array[size];
+	public:
+		Array() {};
+		Array(T* b);
+		void show();
+		minimum(Array<T>& m);
+};
+
+Условия сборки и запуска:
+1) открыть терминал
+2) make
+3) ./main
